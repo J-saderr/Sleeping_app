@@ -7,54 +7,54 @@
     android:layout_height="fill_parent"
     android:background="@drawable/nenchinh"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Timingsleep">
 
     <DigitalClock
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="210dp"
         android:layout_marginTop="150dp"
+        android:layout_gravity="center"
         android:textColor="@color/white"
         android:textSize="80sp" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="60dp">
 
 
         <Button
             android:id="@+id/hendongho"
-            android:layout_width="130dp"
-            android:layout_height="105dp"
+            android:layout_width="200dp"
+            android:layout_height="88dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="183dp"
-            android:layout_toStartOf="@+id/textView"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="223dp"
+            android:layout_toStartOf="@+id/timerTextView"
             android:backgroundTint="#ACBADE"
             android:text="_"
             android:textColor="#00FDFDFC" />
 
         <Button
             android:id="@+id/ghichu"
-            android:layout_width="130dp"
-            android:layout_height="107dp"
-            android:layout_alignStart="@+id/textView"
+            android:layout_width="200dp"
+            android:layout_height="91dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="-2dp"
-            android:layout_marginBottom="182dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="220dp"
+            android:layout_toEndOf="@+id/timerTextView"
             android:backgroundTint="#ACBADE"
             android:text="_"
             android:textColor="#00FDFDFC" />
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_alignTop="@+id/hendongho"
             android:layout_alignEnd="@+id/hendongho"
             android:layout_alignBottom="@+id/hendongho"
@@ -67,21 +67,21 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignStart="@+id/ghichu"
             android:layout_alignTop="@+id/ghichu"
             android:layout_alignEnd="@+id/ghichu"
             android:layout_alignBottom="@+id/ghichu"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_toEndOf="@+id/hendongho"
             android:src="@drawable/ghichu" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/timerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -92,11 +92,10 @@
         <ImageView
             android:id="@+id/swipeView"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_alignTop="@+id/textView"
-            android:layout_marginTop="-15dp"
+            android:layout_height="217dp"
+            android:layout_alignTop="@+id/timerTextView"
+            android:layout_marginTop="2dp"
             android:contentDescription="Swipe View"
-
             tools:ignore="HardcodedText" />
 
 

@@ -1,21 +1,23 @@
 package com.example.demo;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.content.Intent;
-import android.os.CountDownTimer;
+import java.util.Timer;
+import java.util.TimerTask;
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    private Button btnBatDauNgU;
+    private Timer timer;
+    private int secondsElapsed = 0;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,34 +49,46 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    Button btnbatdaungu;
+    private Button startButton;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        // Tìm nút trong layout của Fragment
-        Button button = view.findViewById(R.id.batdaungu);
 
-        // Đặt lắng nghe sự kiện click cho nút
-        button.setOnClickListener(new View.OnClickListener() {
+        startButton = view.findViewById(R.id.batdaungu);
+
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // Xử lý khi nút được bấm
-                Intent intent = new Intent(getActivity(), Timingsleep.class); // Thay NewActivity bằng tên Activity mới của bạn
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Timingsleep.class);
                 startActivity(intent);
-
+                startTimer();
             }
+        });
+        return view;
+    }
+    private void startTimer() {
+        if (timer != null) {
+            timer.cancel();
         }
-        );
-   return view;
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        secondsElapsed++;
+                        updateTimerText();
+                    }
+                });
+            }
+        }, 0, 1000);
+    }
+
+    private void updateTimerText() {
+        int minutes = secondsElapsed / 60;
+        int seconds = secondsElapsed % 60;
     }
 }

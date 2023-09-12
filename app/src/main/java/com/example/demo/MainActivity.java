@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.demo.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
+
     ActivityMainBinding binding;
 
     @SuppressLint("NonConstantResourceId")

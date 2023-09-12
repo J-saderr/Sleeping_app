@@ -5,6 +5,7 @@
     <string name="action_chart">Xu hướng</string>
     <string name="action_more">Khác</string>
     <string name="action_batdaungu">Bắt đầu ngủ</string>
+    <string name="danhgiagiacngu">Đánh giá giấc ngủ</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

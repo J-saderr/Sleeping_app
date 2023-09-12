@@ -5,20 +5,33 @@
     android:layout_height="match_parent"
     android:background="@drawable/nenchinh"
     tools:context=".MoreFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="bottom">
+        <TextView
+            android:id="@+id/ratingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn cảm thấy app RabitSleep
+này như thế nào?:"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:rating="0"
+            android:layout_gravity="center"
+            android:layout_marginBottom="150dp"
+            android:backgroundTint="#ff0"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/more"
-        android:layout_width="159dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:gravity="top"
-        android:lineSpacingExtra="0sp"
-        android:text="@string/action_more"
-        android:textColor="@color/white"
-        android:textSize="32sp" />
+
+    </LinearLayout>
+
 
 </FrameLayout>

@@ -3,10 +3,12 @@ package com.example.demo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +16,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class MoreFragment extends Fragment {
+    private RatingBar ratingBar;
+    private TextView ratingText;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +62,17 @@ public class MoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_more, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more, container, false);
+        ratingBar = view.findViewById(R.id.ratingBar);
+        ratingText = view.findViewById(R.id.ratingText);
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                ratingText.setText("Cảm ơn đánh giá của bạn rất nhiều!");
+            }
+        });
+        return view;
     }
 }
