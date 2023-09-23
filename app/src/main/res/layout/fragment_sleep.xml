@@ -1,24 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_sleep"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/nenchinh"
     tools:context=".SleepFragment">
-
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/sleep"
-        android:layout_width="159dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:gravity="top"
-        android:lineSpacingExtra="0sp"
-        android:text="@string/action_sleep"
-        android:textColor="@color/white"
-        android:textSize="32sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/nenchinh"
+        >
 
+        <TextView
+            android:id="@+id/wakeup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thuckhuya"
+            android:layout_marginTop="57dp"
+            android:layout_marginEnd="6dp"
+            android:layout_toStartOf="@+id/imageView5"
+            android:text="7:00"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+
+        <TextView
+            android:id="@+id/bedtime"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/thuckhuya"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="57dp"
+            android:layout_toEndOf="@+id/imageView7"
+            android:text="23:00"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+
+        <TextView
+            android:id="@+id/thoigianngu"
+            android:layout_width="184dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Ngay"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Thời gian ngủ"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/danhgiagiac_ngu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:lineSpacingExtra="0sp"
+            android:text="Thu âm"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+
+
+        <TextView
+            android:id="@+id/Ngay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/danhgiagiac_ngu"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="187dp"
+            android:text="09/09/2023"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+
+        <TextView
+            android:id="@+id/thuckhuya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thoigianngu"
+            android:layout_marginTop="2dp"
+            android:layout_centerHorizontal="true"
+            android:text="8 tiếng"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/thuckhuya1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/thuckhuya3"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="26dp"
+            android:text="Thức khuya"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/thuckhuya2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/thuckhuya4"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="16dp"
+            android:text="Ngủ nướng"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/selectedOptionTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fsdfsdf"
+            android:padding="14dp"
+            />
+
+
+
+        <TextView
+            android:id="@+id/thuckhuya3"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="199dp"
+            android:layout_marginBottom="0dp"
+            android:text="Trễ 30 phút"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+
+        <TextView
+                android:id="@+id/thuckhuya4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="34dp"
+                android:layout_marginBottom="0dp"
+                android:text="Lố 30 phút"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thuckhuya"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/line"/>
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="54dp"
+            android:layout_height="37dp"
+            android:layout_below="@+id/danhgiagiac_ngu"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@+id/Ngay"
+            android:src="@drawable/thuam_date1" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thuckhuya"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="19dp"
+            android:src="@drawable/sun" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thuckhuya"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="57dp"
+            android:src="@drawable/thongke_bed" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="268dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView6"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="32dp"
+            android:text="Hiệu quả giấc ngủ"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_above="@+id/thuckhuya1"
+            android:layout_below="@+id/imageView6"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="10dp" />
+
+
+    </RelativeLayout>
 </FrameLayout>

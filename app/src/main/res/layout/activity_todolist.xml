@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/nenchinh"
+    tools:layout_marginTop="0dp">
+        <ImageButton
+            android:id="@+id/btnouttodolist"
+            android:layout_width="83dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="26dp"
+            android:background="#00FDFDFC"
+            android:contentDescription="Mcuts"
+            android:src="@drawable/muiten">
+
+        </ImageButton>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/todoListRecyclerView"
+        android:layout_below="@+id/btnouttodolist"
+        android:background="@drawable/nenchinh"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Task"
+        android:id="@+id/newTaskButton"
+        android:backgroundTint="?attr/colorPrimary"
+        android:textColor="?colorOnPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp"
+        android:layout_margin="20dp"
+        app:iconTint="?colorOnPrimary"
+        />
+
+</RelativeLayout>
+</layout>

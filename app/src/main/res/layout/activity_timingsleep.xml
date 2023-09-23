@@ -22,8 +22,8 @@
         android:layout_height="fill_parent"
         android:layout_marginTop="60dp">
 
-
         <Button
+            android:backgroundTint="#7D1A1A74"
             android:id="@+id/hendongho"
             android:layout_width="200dp"
             android:layout_height="88dp"
@@ -33,7 +33,6 @@
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="223dp"
             android:layout_toStartOf="@+id/timerTextView"
-            android:backgroundTint="#ACBADE"
             android:text="_"
             android:textColor="#00FDFDFC" />
 
@@ -63,7 +62,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/dongho" />
+            android:src="@drawable/baothuc" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -86,7 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="_"
-            android:textColor="#00FDFDFC"
             />
 
         <ImageView
@@ -98,8 +96,18 @@
             android:contentDescription="Swipe View"
             tools:ignore="HardcodedText" />
 
+        <TextView
+            android:id="@+id/V1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/timerTextView"
+            android:layout_marginTop="85dp"
+            android:textSize="32sp"
+            android:text="Lướt Lên Để Dừng "
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="#C3FDFDFD"/>
 
     </RelativeLayout>
-
 
 </LinearLayout>

@@ -1,16 +1,20 @@
 package com.example.demo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import java.util.Timer;
 
 public class Timingsleep extends AppCompatActivity {
     private ImageView swipeView;
@@ -19,81 +23,108 @@ public class Timingsleep extends AppCompatActivity {
     private TextView timerTextView;
     private long elapsedTimeInSeconds = 0;
     private boolean isTimerRunning = false;
+    private Timer timer;
+    private TimerViewModel timerViewModel;
+
+    protected void onResume() {
+        super.onResume();
+        timerViewModel.startTimer();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timingsleep);
-
         timerTextView = findViewById(R.id.timerTextView);
         swipeView = findViewById(R.id.swipeView);
-
+        timer = new Timer();
         handler = new Handler();
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 if (e1.getY() > e2.getY()) {
-                    Toast.makeText(Timingsleep.this, "Vuốt lên để tạm dừng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Timingsleep.this, "Trượt lên để dừng", Toast.LENGTH_SHORT).show();
+                    // Implement your pause timer logic here
                     return true;
                 }
                 return super.onFling(e1, e2, velocityX, velocityY);
             }
         });
 
+        // Initialize timerViewModel
+        timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
+
+        // Set up the onTouchListener for swipeView
         swipeView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Toast.makeText(Timingsleep.this, "Vuốt lên để tạm dừng", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
-                    startActivity(intent);
+                    stopTimer();
+                    long currentTimeInMillis = System.currentTimeMillis();
+                    long startTimeInMillis = getIntent().getLongExtra("startTimeInMillis", 0);
+                    elapsedTimeInSeconds += (currentTimeInMillis - startTimeInMillis) / 1000;
                 }
                 return true;
             }
         });
-    }
-
-    private void handleEnd() {
-        isTimerRunning = false;
-        handler.removeCallbacksAndMessages(null);
-        saveTime();
-        stopTimer();
-        Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void saveTime() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong("elapsedTimeInSeconds", elapsedTimeInSeconds);
-        editor.apply();
-    }
-
-    private void updateTimerText() {
-        int seconds = (int) (elapsedTimeInSeconds % 60);
-        int minutes = (int) (elapsedTimeInSeconds / 60);
-        runOnUiThread(new Runnable() {
+        Button btnbaothuc;
+        btnbaothuc = findViewById(R.id.hendongho);
+        btnbaothuc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                timerTextView.setText(String.format("%02d:%02d", minutes, seconds));
+            public void onClick(View v) {
+                Intent intent = new Intent(Timingsleep.this, Baothuc.class);
+                startActivity(intent);
             }
         });
     }
 
+    // Define the stopTimer method as a separate method
     private void stopTimer() {
-        isTimerRunning = false;
-        handler.removeCallbacks(runnable);
-    }
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            if (isTimerRunning) {
-                elapsedTimeInSeconds++;
-                updateTimerText();
-                handler.postDelayed(this, 1000);
-            }
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
         }
-    };
+
+        // Remove any pending Runnable tasks from the handler
+        handler.removeCallbacksAndMessages(null);
+
+        // Calculate the elapsed time
+        long currentTimeInMillis = System.currentTimeMillis();
+        long startTimeInMillis = getIntent().getLongExtra("startTimeInMillis", 0);
+        elapsedTimeInSeconds += (currentTimeInMillis - startTimeInMillis) / 1000;
+
+        // Update the timerTextView with the elapsed time
+        long hours = elapsedTimeInSeconds / 3600;
+        long remainingSeconds = elapsedTimeInSeconds % 3600;
+        long minutes = remainingSeconds / 60;
+        long seconds = remainingSeconds % 60;
+
+        String formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        timerTextView.setText("Elapsed Time: " + formattedTime);
+        if (elapsedTimeInSeconds < 30 * 60) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Thời gian nhỏ hơn 30 phút. Bạn có muốn dừng không?")
+                    .setPositiveButton("Dừng", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Người dùng đã chọn dừng, thực hiện các tác vụ cần thiết ở đây
+                            // Ví dụ: finish() để đóng Activity
+                            boolean shouldSaveTime = false;
+                            Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Tiếp tục", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Người dùng đã chọn tiếp tục, không làm gì cả
+                        }
+                    });
+            builder.create().show();
+        }
+        if (elapsedTimeInSeconds >= 30 * 60) {
+            Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }

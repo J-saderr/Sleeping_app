@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/nenchinh"
+    android:background="@drawable/bg_dggn"
     android:orientation="vertical"
     tools:context=".CLgiacngu">
 
@@ -16,8 +16,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="26dp"
-        android:layout_marginEnd="2dp"
-        android:layout_toStartOf="@+id/danhgiagiac_ngu"
         android:background="#00FDFDFC"
         android:contentDescription="Mcuts"
         android:src="@drawable/muiten">
@@ -29,10 +27,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="41dp"
+        android:layout_toEndOf="@+id/myImageButton"
         android:gravity="center"
         android:lineSpacingExtra="0sp"
         android:text="@string/danhgiagiacngu"
@@ -41,61 +38,286 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="631dp"
+        android:layout_height="798dp"
         android:layout_below="@+id/danhgiagiac_ngu"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="0dp"
         android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".MainActivity">
-
-        <TextView
-            android:id="@+id/ratingText"
-            android:layout_width="wrap_content"
+        android:padding="10dp"
+        android:weightSum="5">
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="0dp"
-            android:text="Bạn đang cảm thấy như thế nào?"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:layout_marginTop="12dp"
+            android:background="@drawable/buttonselect"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:weightSum="5">
+
+            <TextView
+                android:id="@+id/ratingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:text="Bạn đang cảm thấy như thế nào?"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="4">
+
+                <ImageButton
+                    android:id="@+id/happyIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/happy"
+                    android:backgroundTint="@drawable/btn_selected"
+                    android:onClick="onHappyIconClick" />
+
+                <ImageButton
+                    android:id="@+id/sadIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sad"
+                    android:backgroundTint="@drawable/btn_selected"
+                    android:onClick="onSadIconClick" />
+
+                <ImageButton
+                    android:id="@+id/NofeelingIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@drawable/btn_selected"
+                    android:onClick="onNofeelingIconClick"
+                    android:src="@drawable/nofeeling" />
+
+                <ImageButton
+                    android:id="@+id/badIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@drawable/btn_selected"
+                    android:onClick="onBadIconClick"
+                    android:src="@drawable/bad" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/Cauhoi1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="40dp"
+            android:layout_weight="0.5"
             android:text="1/ Bạn lên giường lúc mấy giờ?"
             android:textColor="@color/white"
             android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/Q1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#7E1A1A74"
+                android:text="Chọn tuỳ chọn"
+                android:textColor="#00FDFDFC"/>
+            <TextView
+                android:id="@+id/wq1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/Q1"
+                android:layout_alignEnd="@+id/Q1"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:text="Chọn tùy chọn"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/Cauhoi2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="0dp"
+            android:layout_weight="0.5"
             android:text="2/ Mất bao lâu để bạn rơi vào giấc ngủ?(tính bằng phút)"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/Q2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#7E1A1A74"
+                android:text="Chọn tuỳ chọn"
+                android:textColor="#00FDFDFC"/>
+            <TextView
+                android:id="@+id/wq2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/Q2"
+                android:layout_alignEnd="@+id/Q2"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:text="Chọn tùy chọn"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/Cauhoi3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="0dp"
+            android:layout_weight="0.5"
             android:text="3/Bạn bị thức giấc giữa đêm mấy lần?"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/Q3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#7E1A1A74"
+                android:text="Chọn tuỳ chọn"
+                android:textColor="#00FDFDFC"/>
+            <TextView
+                android:id="@+id/wq3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/Q3"
+                android:layout_alignEnd="@+id/Q3"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:text="Chọn tùy chọn"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/Cauhoi4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="0dp"
+            android:layout_weight="0.5"
             android:text="4/Tổng thời gian thức giấc(tính bằng phút)?"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/Q4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#7E1A1A74"
+                android:text="Chọn tuỳ chọn"
+                android:textColor="#00FDFDFC"/>
+            <TextView
+                android:id="@+id/wq4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/Q4"
+                android:layout_alignEnd="@+id/Q4"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:text="Chọn tùy chọn"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="42dp"
+            android:background="@drawable/buttonselect"
+            android:layout_below="@id/Q4"
+            tools:ignore="NotSibling">
+
+            <Button
+                android:id="@+id/btntodolist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#00FFFF00"
+                android:text="-" />
+
+            <ImageView
+                android:id="@+id/tho"
+                android:layout_width="45dp"
+                android:layout_height="52dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/tho"
+                android:contentDescription="Thỏ"/>
+
+            <TextView
+                android:id="@+id/Todolist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/tho"
+                android:text="To-do list"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Todolist"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"
+                android:src="@drawable/line_"
+                android:contentDescription="line"/>
+
+        </RelativeLayout>
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/fragment_sleep"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

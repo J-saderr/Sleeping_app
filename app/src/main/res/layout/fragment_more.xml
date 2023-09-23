@@ -1,37 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/nenchinh"
+
     tools:context=".MoreFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="bottom">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/nenchinh">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="340dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="270dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dangxuat"
+                android:layout_width="232dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Đăng xuất"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/khac_dangxuat" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="451dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/phanhoi"
+                android:layout_width="232dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Phản hồi"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+
+            <ImageView
+                android:id="@+id/phanhoi_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/khac_phanhoi" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="220dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="390dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/giupdo"
+                android:layout_width="232dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Giúp đỡ"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+
+            <ImageView
+                android:id="@+id/giupdo_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/khac_giupdo" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="280dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="330dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/lienhe"
+                android:layout_width="232dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Liên hệ"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+
+            <ImageView
+                android:id="@+id/lienhe_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/khac_lienhe" />
+        </LinearLayout>
+
+
         <TextView
-            android:id="@+id/ratingText"
+            android:id="@+id/khac"
+            android:layout_width="224dp"
+            android:layout_height="43dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="27dp"
+            android:text="Khác"
+            android:textColor="#ffffff"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bạn cảm thấy app RabitSleep
-này như thế nào?:"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1"
-            android:rating="0"
-            android:layout_gravity="center"
-            android:layout_marginBottom="150dp"
-            android:backgroundTint="#ff0"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="443dp"
+            android:layout_marginEnd="0dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ratingText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bạn cảm thấy app RabitSleep này như thế nào?:"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="150dp"
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="1" />
+
+        </LinearLayout>
 
 
-    </LinearLayout>
-
-
+    </RelativeLayout>
 </FrameLayout>

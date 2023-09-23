@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/nenchinh"
-
     tools:context=".HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="ExtraText">
+        android:background="@drawable/nenchinh"
+        tools:context=".HomeFragment">
 
         <TextView
             android:id="@+id/name"
@@ -29,7 +27,7 @@
             android:textSize="32sp" />
 
         <Button
-            android:id="@+id/Todolist"
+            android:id="@+id/todolist"
             android:layout_width="180dp"
             android:layout_height="119dp"
             android:layout_alignEnd="@+id/batdaungu"
@@ -39,18 +37,18 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="151dp"
             android:layout_marginBottom="120dp"
-            android:backgroundTint="#7FA7D5"
+            android:backgroundTint="#521A1A74"
             android:text="_"
-            android:textColor="#00FDFDFC" />
+            android:textColor="#00FDFDFC"/>
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_alignStart="@+id/Todolist"
-                android:layout_alignTop="@+id/Todolist"
-                android:layout_alignEnd="@+id/Todolist"
-                android:layout_alignBottom="@+id/Todolist"
+                android:layout_alignStart="@+id/todolist"
+                android:layout_alignTop="@+id/todolist"
+                android:layout_alignEnd="@+id/todolist"
+                android:layout_alignBottom="@+id/todolist"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="40dp"
@@ -58,7 +56,7 @@
                 android:src="@drawable/todolist" />
 
         <Button
-            android:id="@+id/AmNhac"
+            android:id="@+id/baothuc"
             android:layout_width="180dp"
             android:layout_height="119dp"
             android:layout_alignStart="@+id/batdaungu"
@@ -67,7 +65,7 @@
             android:layout_marginStart="153dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="120dp"
-            android:backgroundTint="#7FA7D5"
+            android:backgroundTint="#521A1A74"
             android:text="_"
             android:textColor="#00FDFDFC" />
 
@@ -75,15 +73,15 @@
                 android:id="@+id/imageView2"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:layout_alignStart="@+id/AmNhac"
-                android:layout_alignTop="@+id/AmNhac"
-                android:layout_alignEnd="@+id/AmNhac"
-                android:layout_alignBottom="@+id/AmNhac"
+                android:layout_alignStart="@+id/baothuc"
+                android:layout_alignTop="@+id/baothuc"
+                android:layout_alignEnd="@+id/baothuc"
+                android:layout_alignBottom="@+id/baothuc"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginBottom="0dp"
-                android:src="@drawable/amnhac" />
+                android:src="@drawable/baothuc" />
 
 
         <Button
@@ -94,14 +92,11 @@
             android:layout_centerHorizontal="true"
             android:layout_marginStart="50dp"
             android:layout_marginTop="540dp"
-            android:backgroundTint="#EC9734"
+            android:backgroundTint="#F0D6FA"
             android:elevation="40dp"
             android:text="@string/action_batdaungu"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textColor="#F81A4574"
+            android:textSize="25sp" />
 
     </RelativeLayout>
-
-
-
 </FrameLayout>
