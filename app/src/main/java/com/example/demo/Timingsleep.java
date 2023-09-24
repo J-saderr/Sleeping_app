@@ -22,12 +22,13 @@ public class Timingsleep extends AppCompatActivity {
     private Handler handler;
     private TextView timerTextView;
     private long elapsedTimeInSeconds = 0;
-    private boolean isTimerRunning = false;
     private Timer timer;
     private TimerViewModel timerViewModel;
+    private String formattedTime = "00:00:00";
 
     protected void onResume() {
         super.onResume();
+        timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
         timerViewModel.startTimer();
     }
 
@@ -37,6 +38,7 @@ public class Timingsleep extends AppCompatActivity {
         setContentView(R.layout.activity_timingsleep);
         timerTextView = findViewById(R.id.timerTextView);
         swipeView = findViewById(R.id.swipeView);
+        TimerViewModel timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
         timer = new Timer();
         handler = new Handler();
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
@@ -77,12 +79,15 @@ public class Timingsleep extends AppCompatActivity {
             }
         });
     }
-
-    // Define the stopTimer method as a separate method
     private void stopTimer() {
         if (timer != null) {
             timer.cancel();
             timer = null;
+            long currentTimeInMillis = System.currentTimeMillis();
+
+            // Define the stopTimer method as a separate method
+            timerViewModel.setBedtime(formattedTime);
+            timerViewModel.setStopTimeInMillis(currentTimeInMillis);
         }
 
         // Remove any pending Runnable tasks from the handler

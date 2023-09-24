@@ -1,13 +1,13 @@
 package com.example.demo;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -79,14 +79,17 @@ public class SleepFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_sleep, container, false);
         TimerViewModel timerViewModel = new ViewModelProvider(requireActivity()).get(TimerViewModel.class);
         long startTimeInMillis = timerViewModel.getStartTimeInMillis();
-// Tìm TextView trong layout
-        TextView startTimeTextView = view.findViewById(R.id.bedtime);
+        String bedtime = timerViewModel.getBedtime();
+        long currentTimeInMillis = timerViewModel.getStopTimeInMillis();
+
+        TextView startTimeTextView = view.findViewById(R.id.starttime);
         TextView selectedOptionTextView1 = view.findViewById(R.id.selectedOptionTextView1);
         Bundle args = getArguments();
         if (args != null) {
             String selectedOption1 = args.getString("selectedOption1");
             // Cập nhật TextView với giá trị đã chọn
             selectedOptionTextView1.setText(selectedOption1);
+
         }
 
 // Chuyển đổi giá trị startTimeInMillis thành chuỗi ngày/giờ/phút/... tùy theo định dạng bạn muốn và hiển thị nó trên TextView

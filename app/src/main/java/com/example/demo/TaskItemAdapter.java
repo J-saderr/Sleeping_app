@@ -1,39 +1,37 @@
 package com.example.demo;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.demo.databinding.TaskItemCellBinding;
 
 import java.util.List;
 
 public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemViewHolder> {
-    private List<TaskItem> taskItems;
-    private TaskItemClickListener clickListener;
-    private Context context;
+    private final List<TaskItem> taskItems;
+    private final TaskItemClickListener clickListener;
 
     public TaskItemAdapter(List<TaskItem> taskItems, TaskItemClickListener clickListener) {
         this.taskItems = taskItems;
         this.clickListener = clickListener;
     }
 
-    @NonNull
     @Override
-    public TaskItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+    public TaskItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         TaskItemCellBinding binding = TaskItemCellBinding.inflate(inflater, parent, false);
-        return new TaskItemViewHolder(context, binding, clickListener);
+        return new TaskItemViewHolder(parent.getContext(), binding, clickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskItemViewHolder holder, int position) {
+    public void onBindViewHolder(TaskItemViewHolder holder, int position) {
         holder.bindTaskItem(taskItems.get(position));
     }
 
+    @Override
     public int getItemCount() {
-        return taskItems != null ? taskItems.size() : 0;
+        return taskItems.size();
     }
 }

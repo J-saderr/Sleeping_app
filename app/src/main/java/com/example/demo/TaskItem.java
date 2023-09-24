@@ -33,8 +33,7 @@ public class TaskItem {
         this.completed = completed;
     }
     public int getImageResource() {
-        // Implement logic to return the image resource ID based on the task item
-        // For example:
+
         if (isCompleted()) {
             return R.drawable.checked;
         } else {
@@ -42,8 +41,7 @@ public class TaskItem {
         }
     }
     public int getImageColor(Context context) {
-        // Implement logic to return the color based on the task item and context
-        // For example, you can return a color resource:
+
         if (isCompleted()) {
             return ContextCompat.getColor(context, R.color.checked);
         } else {

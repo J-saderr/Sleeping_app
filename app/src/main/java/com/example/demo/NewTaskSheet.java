@@ -6,12 +6,8 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TimePicker;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demo.databinding.FragmentNewTaskSheetBinding;
@@ -20,7 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.time.LocalTime;
 
 public class NewTaskSheet extends BottomSheetDialogFragment {
-
     private FragmentNewTaskSheetBinding binding;
     private TaskViewModel taskViewModel;
     private TaskItem taskItem;
@@ -37,15 +32,14 @@ public class NewTaskSheet extends BottomSheetDialogFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final FragmentActivity activity = requireActivity();
 
         if (taskItem != null) {
             binding.taskTitle.setText("Edit Task");
-            Editable.Factory factory = Editable.Factory.getInstance();
-            binding.name.setText(factory.newEditable(taskItem.getName()));
-            binding.desc.setText(factory.newEditable(taskItem.getDesc()));
+            Editable.Factory editableFactory = Editable.Factory.getInstance();
+            binding.name.setText(editableFactory.newEditable(taskItem.getName()));
+            binding.desc.setText(editableFactory.newEditable(taskItem.getDesc()));
             if (taskItem.getDueTime() != null) {
                 dueTime = taskItem.getDueTime();
                 updateTimeButtonText();
@@ -55,6 +49,7 @@ public class NewTaskSheet extends BottomSheetDialogFragment {
         }
 
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,9 +66,9 @@ public class NewTaskSheet extends BottomSheetDialogFragment {
     }
 
     private void openTimePicker() {
-        if (dueTime == null) {
+        if (dueTime == null)
             dueTime = LocalTime.now();
-        }
+
         TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
@@ -82,12 +77,12 @@ public class NewTaskSheet extends BottomSheetDialogFragment {
             }
         };
 
-        TimePickerDialog dialog = new TimePickerDialog(requireActivity(), listener, dueTime.getHour(), dueTime.getMinute(), true);
+        TimePickerDialog dialog = new TimePickerDialog(requireContext(), listener, dueTime.getHour(), dueTime.getMinute(), true);
         dialog.setTitle("Task Due");
         dialog.show();
     }
+
     private void updateTimeButtonText() {
-        Button timePickerButton;
         binding.timePickerButton.setText(String.format("%02d:%02d", dueTime.getHour(), dueTime.getMinute()));
     }
 
