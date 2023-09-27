@@ -2,12 +2,21 @@ package com.example.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.gson.Gson;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -35,12 +44,35 @@ public class HomeFragment extends Fragment {
         TodolistButton = view.findViewById(R.id.todolist);
         timerViewModel = new ViewModelProvider(requireActivity()).get(TimerViewModel.class);
         startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Timingsleep.class);
                 long startTimeInMillis = System.currentTimeMillis();
+                Date currentTime = new Date(startTimeInMillis);
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                String formattedDateTime = dateFormat.format(currentTime);
+
+                TimerData timerData = new TimerData();
+                timerData.setStart(startTimeInMillis);
+
+                Gson gson = new Gson();
+                String timerDataJson = gson.toJson(timerData);
+
+                String filename = "data.json";
+                String filePath = getActivity().getFilesDir().getPath() + "/" + filename;
+
+                try {
+                    FileWriter writer = new FileWriter(filePath);
+                    writer.write(timerDataJson);
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Intent intent = new Intent(getActivity(), Timingsleep.class);
+                intent.putExtra("timerDataJsonFilePath", filePath);
                 intent.putExtra("startTimeInMillis", startTimeInMillis);
-                startActivity(intent);// Capture the start time// Start the timer using the ViewModel
+                startActivity(intent);
+
                 timerViewModel.setStartTimeInMillis(startTimeInMillis);
                 timerViewModel.startTimer();
             }

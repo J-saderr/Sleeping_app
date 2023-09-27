@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.gson.Gson;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 
 public class Timingsleep extends AppCompatActivity {
@@ -24,7 +28,7 @@ public class Timingsleep extends AppCompatActivity {
     private long elapsedTimeInSeconds = 0;
     private Timer timer;
     private TimerViewModel timerViewModel;
-    private String formattedTime = "00:00:00";
+    private String timerDataJson;
 
     protected void onResume() {
         super.onResume();
@@ -36,9 +40,9 @@ public class Timingsleep extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timingsleep);
+        timerDataJson = getIntent().getStringExtra("timerDataJson");
         timerTextView = findViewById(R.id.timerTextView);
         swipeView = findViewById(R.id.swipeView);
-        TimerViewModel timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
         timer = new Timer();
         handler = new Handler();
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
@@ -52,9 +56,6 @@ public class Timingsleep extends AppCompatActivity {
                 return super.onFling(e1, e2, velocityX, velocityY);
             }
         });
-
-        // Initialize timerViewModel
-        timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
 
         // Set up the onTouchListener for swipeView
         swipeView.setOnTouchListener(new View.OnTouchListener() {
@@ -79,57 +80,44 @@ public class Timingsleep extends AppCompatActivity {
             }
         });
     }
-    private void stopTimer() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-            long currentTimeInMillis = System.currentTimeMillis();
 
-            // Define the stopTimer method as a separate method
-            timerViewModel.setBedtime(formattedTime);
-            timerViewModel.setStopTimeInMillis(currentTimeInMillis);
+    private void stopTimer() {
+        if (timerViewModel != null) {
+            timerViewModel.stopTimer();
+            long currentTimeInMillis = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            Date resultDate = new Date(currentTimeInMillis);
+            String formattedTime = sdf.format(resultDate);
+
+            long startTimeInMillis = getIntent().getLongExtra("startTimeInMillis", 0);
+            elapsedTimeInSeconds += (currentTimeInMillis - startTimeInMillis) / 1000;
+
+            long hours = elapsedTimeInSeconds / 3600;
+            long remainingSeconds = elapsedTimeInSeconds % 3600;
+            long minutes = remainingSeconds / 60;
+            long seconds = remainingSeconds % 60;
+
+            formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+
+            timerTextView.setText(formattedTime);
+
+            if (elapsedTimeInSeconds <= 30 * 60) {
+                TimerData timerData = new TimerData(startTimeInMillis, currentTimeInMillis);
+
+                Gson gson = new Gson();
+                String timerDataJson = gson.toJson(timerData);
+
+                String filePath = getFilesDir() + "/data.json";
+                timerData.saveToJson(filePath);
+
+                Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
+                intent.putExtra("timerDataJson", timerDataJson);
+                startActivity(intent);
+                finish();
+            }
         }
 
         // Remove any pending Runnable tasks from the handler
         handler.removeCallbacksAndMessages(null);
-
-        // Calculate the elapsed time
-        long currentTimeInMillis = System.currentTimeMillis();
-        long startTimeInMillis = getIntent().getLongExtra("startTimeInMillis", 0);
-        elapsedTimeInSeconds += (currentTimeInMillis - startTimeInMillis) / 1000;
-
-        // Update the timerTextView with the elapsed time
-        long hours = elapsedTimeInSeconds / 3600;
-        long remainingSeconds = elapsedTimeInSeconds % 3600;
-        long minutes = remainingSeconds / 60;
-        long seconds = remainingSeconds % 60;
-
-        String formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        timerTextView.setText("Elapsed Time: " + formattedTime);
-        if (elapsedTimeInSeconds < 30 * 60) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Thời gian nhỏ hơn 30 phút. Bạn có muốn dừng không?")
-                    .setPositiveButton("Dừng", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // Người dùng đã chọn dừng, thực hiện các tác vụ cần thiết ở đây
-                            // Ví dụ: finish() để đóng Activity
-                            boolean shouldSaveTime = false;
-                            Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Tiếp tục", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // Người dùng đã chọn tiếp tục, không làm gì cả
-                        }
-                    });
-            builder.create().show();
-        }
-        if (elapsedTimeInSeconds >= 30 * 60) {
-            Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
-            startActivity(intent);
-            finish();
         }
     }
-}

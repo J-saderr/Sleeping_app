@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -15,9 +14,13 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -35,10 +38,6 @@ public class SleepFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private String selectedOption1;
-    private String selectedOption2;
-    private String selectedOption3;
-    private String selectedOption4;
 
     public SleepFragment() {
         // Required empty public constructor
@@ -53,7 +52,7 @@ public class SleepFragment extends Fragment {
      * @return A new instance of fragment SleepFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SleepFragment newInstance(String param1, String param2,String selectedOption1, String selectedOption2, String selectedOption3, String selectedOption4) {
+    public static SleepFragment newInstance(String param1, String param2) {
         SleepFragment fragment = new SleepFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -70,55 +69,101 @@ public class SleepFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    private String formatTime(long timeInMillis) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date(timeInMillis));
+    }
+    private String formatElapsedTime(long elapsedTimeInSeconds) {
+        long hours = elapsedTimeInSeconds / 3600;
+        long remainingSeconds = elapsedTimeInSeconds % 3600;
+        long minutes = remainingSeconds / 60;
+        long seconds = remainingSeconds % 60;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sleep, container, false);
         View rootView = inflater.inflate(R.layout.fragment_sleep, container, false);
-        TimerViewModel timerViewModel = new ViewModelProvider(requireActivity()).get(TimerViewModel.class);
-        long startTimeInMillis = timerViewModel.getStartTimeInMillis();
-        String bedtime = timerViewModel.getBedtime();
-        long currentTimeInMillis = timerViewModel.getStopTimeInMillis();
+        Bundle bundle = getArguments();
+        String filePath = getActivity().getFilesDir() + "/data.json";
+        TimerData loadedTimerData = TimerData.loadFromJson(filePath);
+        TextView elapsedTimeTextView = view.findViewById(R.id.thoigianngu);
 
-        TextView startTimeTextView = view.findViewById(R.id.starttime);
-        TextView selectedOptionTextView1 = view.findViewById(R.id.selectedOptionTextView1);
-        Bundle args = getArguments();
-        if (args != null) {
-            String selectedOption1 = args.getString("selectedOption1");
-            // Cập nhật TextView với giá trị đã chọn
-            selectedOptionTextView1.setText(selectedOption1);
+        if (loadedTimerData != null) {
+            long startTime = loadedTimerData.getStart();
+            long stopTime = loadedTimerData.getStop();
 
+            String formattedStartTime = formatTime(startTime);
+            String formattedStopTime = formatTime(stopTime);
+
+            TextView startTimeTextView = view.findViewById(R.id.starttime);
+            TextView stopTimeTextView = view.findViewById(R.id.stoptime);
+
+            startTimeTextView.setText(formattedStartTime);
+            stopTimeTextView.setText(formattedStopTime);
+
+            long elapsedTimeInSeconds = (stopTime - startTime) / 1000;
+            String formattedElapsedTime = formatElapsedTime(elapsedTimeInSeconds);
+            elapsedTimeTextView.setText(formattedElapsedTime);
+        }
+        String jsonData = "";
+
+        try {
+            FileReader reader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+
+            jsonData = stringBuilder.toString();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-// Chuyển đổi giá trị startTimeInMillis thành chuỗi ngày/giờ/phút/... tùy theo định dạng bạn muốn và hiển thị nó trên TextView
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String formattedStartTime = sdf.format(new Date(startTimeInMillis));
+        //textviewNgay
+        TextView currentDateTextView = view.findViewById(R.id.Ngay);
+        long currentTimeMillis = System.currentTimeMillis();
+        Date currentDate = new Date(currentTimeMillis);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+        currentDateTextView.setText(formattedDate);
 
-        startTimeTextView.setText("Start Time: " + formattedStartTime);
+        //Pie chart
+            PieChart pieChart = view.findViewById(R.id.pieChart);
 
-        PieChart pieChart = view.findViewById(R.id.pieChart);
+            ArrayList<PieEntry> entries = new ArrayList<>();
+                entries.add(new
 
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(40f, "Item 1"));
-        entries.add(new PieEntry(25f, "Item 2"));
-        entries.add(new PieEntry(35f, "Item 3"));
+            PieEntry(40f,"Item 1"));
+                entries.add(new
 
-        PieDataSet dataSet = new PieDataSet(entries, "My Chart");
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        dataSet.setValueTextSize(12f);
+            PieEntry(25f,"Item 2"));
+                entries.add(new
 
-        PieData pieData = new PieData(dataSet);
-        pieChart.setData(pieData);
+            PieEntry(35f,"Item 3"));
 
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleRadius(30f);
-        pieChart.setTransparentCircleRadius(40f);
+            PieDataSet dataSet = new PieDataSet(entries, "My Chart");
+                dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                dataSet.setValueTextSize(12f);
 
-        pieChart.invalidate(); // Refresh the chart
-        return view;
-    }
+            PieData pieData = new PieData(dataSet);
+                pieChart.setData(pieData);
+
+                pieChart.setUsePercentValues(true);
+                pieChart.getDescription().
+
+            setEnabled(false);
+                pieChart.setDrawHoleEnabled(true);
+                pieChart.setHoleRadius(30f);
+                pieChart.setTransparentCircleRadius(40f);
+
+                pieChart.invalidate(); // Refresh the chart
+                return view;
+        }
 }

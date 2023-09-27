@@ -7,19 +7,6 @@
     android:layout_weight="0.5"
     android:background="@drawable/nenchinh">
 
-    <ImageButton
-        android:id="@+id/myImageButton"
-        android:layout_width="83dp"
-        android:layout_height="52dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="26dp"
-        android:background="#00FDFDFC"
-        android:contentDescription="Mcuts"
-        android:src="@drawable/muiten">
-
-    </ImageButton>
 
     <Switch
         android:id="@+id/switch2"
@@ -43,10 +30,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="26dp"
-        android:layout_toEndOf="@+id/myImageButton"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
         android:layout_weight="1"
         android:drawablePadding="16dp"
         android:text="Báo thức"
@@ -152,8 +139,6 @@
         android:layout_marginTop="281dp"
         android:layout_marginEnd="125dp"
         android:layout_weight="1"
-
-
         android:text="Báo thức"
         android:textColor="@color/white"
         android:textSize="32sp"
@@ -248,5 +233,21 @@
         android:textSize="27sp"
         android:visibility="visible" />
 
-
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNavigationView" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom"
+        app:itemTextColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@android:color/black"/>
 </RelativeLayout>

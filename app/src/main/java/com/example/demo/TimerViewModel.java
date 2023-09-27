@@ -53,13 +53,13 @@ public class TimerViewModel extends ViewModel {
         if (timer != null) {
             timer.cancel();
             timer = null;
-            long currentTimeMillis = System.currentTimeMillis();
+            long currentTimeInMillis = System.currentTimeMillis();
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            Date resultDate = new Date(currentTimeMillis);
+            Date resultDate = new Date(currentTimeInMillis);
             String formattedTime = sdf.format(resultDate);
-            Log.d("CurrentTime", "Current time: " + currentTimeMillis);
+            Log.d("CurrentTime", "Current time: " + currentTimeInMillis);
             setBedtime(formattedTime);
-            setStopTimeInMillis(currentTimeMillis);
+            setStopTimeInMillis(currentTimeInMillis);
         }
     }
 
@@ -90,4 +90,14 @@ public class TimerViewModel extends ViewModel {
     public static TimerViewModel fromJson(String json) {
         return new GsonBuilder().create().fromJson(json, TimerViewModel.class);
     }
+    private TimerData timerData;
+
+    public void setTimerData(TimerData timerData) {
+        this.timerData = timerData;
+    }
+
+    public TimerData getTimerData() {
+        return timerData;
+    }
+
 }
