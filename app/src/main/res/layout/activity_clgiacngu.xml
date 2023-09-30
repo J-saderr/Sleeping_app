@@ -44,80 +44,14 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:weightSum="5">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/buttonselect"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:weightSum="5">
-
-            <TextView
-                android:id="@+id/ratingText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="0dp"
-                android:text="Bạn đang cảm thấy như thế nào?"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="4">
-
-                <ImageButton
-                    android:id="@+id/happyIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/happy"
-                    android:backgroundTint="@drawable/btn_selected"
-                    android:onClick="onHappyIconClick" />
-
-                <ImageButton
-                    android:id="@+id/sadIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/sad"
-                    android:backgroundTint="@drawable/btn_selected"
-                    android:onClick="onSadIconClick" />
-
-                <ImageButton
-                    android:id="@+id/NofeelingIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@drawable/btn_selected"
-                    android:onClick="onNofeelingIconClick"
-                    android:src="@drawable/nofeeling" />
-
-                <ImageButton
-                    android:id="@+id/badIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@drawable/btn_selected"
-                    android:onClick="onBadIconClick"
-                    android:src="@drawable/bad" />
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/Cauhoi1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="40dp"
-            android:layout_weight="0.5"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.25"
             android:text="1/ Bạn lên giường lúc mấy giờ?"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -153,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.25"
             android:text="2/ Mất bao lâu để bạn rơi vào giấc ngủ?(tính bằng phút)"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -191,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.25"
             android:text="3/Bạn bị thức giấc giữa đêm mấy lần?"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -229,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.25"
             android:text="4/Tổng thời gian thức giấc(tính bằng phút)?"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -260,9 +194,262 @@
                 android:textAlignment="center"
                 />
         </RelativeLayout>
-
-
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/buttonselect"
+            android:layout_below="@id/Q4"
+            tools:ignore="NotSibling">
+            <ImageView
+                android:id="@+id/tho1"
+                android:layout_width="45dp"
+                android:layout_height="52dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/tho"
+                android:contentDescription="Thỏ"/>
+
+            <TextView
+                android:id="@+id/Ghichugiacngu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/tho1"
+                android:text="Ghi chú giấc ngủ"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/Ho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="0dp"
+                android:layout_below="@+id/Ghichugiacngu">
+
+                <TextView
+                    android:id="@+id/Ghichu1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.25"
+                    android:text="- Ho/Khó thở"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/G1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:backgroundTint="#7E1A1A74"
+                            android:text="Chọn tuỳ chọn"
+                            android:textColor="#00FDFDFC"/>
+                        <TextView
+                            android:id="@+id/wg1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/G1"
+                            android:layout_alignEnd="@+id/G1"
+                            android:layout_marginStart="0dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="0dp"
+                            android:text="Chọn tùy chọn"
+                            android:textColor="@color/white"
+                            android:textAlignment="center"
+                            />
+                    </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/Acmong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="0dp"
+                android:layout_below="@+id/Ho">
+
+                <TextView
+                    android:id="@+id/Ghichu2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.25"
+                    android:text="- Ác Mộng"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/G2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:backgroundTint="#7E1A1A74"
+                        android:text="Chọn tuỳ chọn"
+                        android:textColor="#00FDFDFC"/>
+                    <TextView
+                        android:id="@+id/wg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/G2"
+                        android:layout_alignEnd="@+id/G2"
+                        android:layout_marginStart="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="0dp"
+                        android:text="Chọn tùy chọn"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/Giatminh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="0dp"
+                android:layout_below="@+id/Acmong">
+
+                <TextView
+                    android:id="@+id/Ghichu3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.25"
+                    android:text="- Giật mình"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/G3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:backgroundTint="#7E1A1A74"
+                        android:text="Chọn tuỳ chọn"
+                        android:textColor="#00FDFDFC"/>
+                    <TextView
+                        android:id="@+id/wg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/G3"
+                        android:layout_alignEnd="@+id/G3"
+                        android:layout_marginStart="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="0dp"
+                        android:text="Chọn tùy chọn"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/Toilet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="0dp"
+                android:layout_below="@+id/Giatminh">
+
+                <TextView
+                    android:id="@+id/Ghichu4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.25"
+                    android:text="- Toilet"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/G4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:backgroundTint="#7E1A1A74"
+                        android:text="Chọn tuỳ chọn"
+                        android:textColor="#00FDFDFC"/>
+                    <TextView
+                        android:id="@+id/wg4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/G4"
+                        android:layout_alignEnd="@+id/G4"
+                        android:layout_marginStart="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="0dp"
+                        android:text="Chọn tùy chọn"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/Nonglanh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="0dp"
+                android:layout_below="@+id/Toilet">
+
+                <TextView
+                    android:id="@+id/Ghichu5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.25"
+                    android:text="- Thấy nóng/lanh"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/G5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:backgroundTint="#7E1A1A74"
+                        android:text="Chọn tùy chọn"
+                        android:textColor="#00FDFDFC"/>
+                    <TextView
+                        android:id="@+id/wg5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/G5"
+                        android:layout_alignEnd="@+id/G5"
+                        android:layout_marginStart="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="0dp"
+                        android:text="Chọn tùy chọn"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginTop="42dp"
@@ -314,5 +501,10 @@
 
         </RelativeLayout>
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/fragment_sleep"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
 
 </RelativeLayout>

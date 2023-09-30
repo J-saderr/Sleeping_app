@@ -10,10 +10,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.Gson;
-
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -54,18 +51,14 @@ public class HomeFragment extends Fragment {
                 TimerData timerData = new TimerData();
                 timerData.setStart(startTimeInMillis);
 
-                Gson gson = new Gson();
-                String timerDataJson = gson.toJson(timerData);
-
                 String filename = "data.json";
                 String filePath = getActivity().getFilesDir().getPath() + "/" + filename;
 
-                try {
-                    FileWriter writer = new FileWriter(filePath);
-                    writer.write(timerDataJson);
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                File jsonFile = new File(filePath);
+                if (jsonFile.exists()) {
+                    // Tệp JSON tồn tại, bạn có thể tiến hành đọc nội dung từ tệp JSON ở đây
+                } else {
+                    // Tệp JSON không tồn tại, có thể có lỗi khi lưu dữ liệu
                 }
 
                 Intent intent = new Intent(getActivity(), Timingsleep.class);

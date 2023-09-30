@@ -1,21 +1,15 @@
 package com.example.demo;
 
-import static android.app.PendingIntent.getActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -26,58 +20,64 @@ public class CLgiacngu extends AppCompatActivity {
     public CLgiacngu() {
         // Default constructor with no arguments
     }
-    private ImageButton happyIcon;
-    private ImageButton sadIcon;
-    private ImageButton NofeelingIcon;
-    private ImageButton badIcon;
-    private String[] options3 = {"1 lần", "2 lần","3 lần","4 lần","5 lần","6 lần","7 lần","8 lần","9 lần","10 lần"};
+    private TimerData timerData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clgiacngu);
         ImageButton myImageButton = findViewById(R.id.myImageButton);
-        happyIcon = findViewById(R.id.happyIcon);
-        sadIcon = findViewById(R.id.sadIcon);
-        NofeelingIcon = findViewById(R.id.NofeelingIcon);
-        badIcon = findViewById(R.id.badIcon);
+        String filePath = getFilesDir() + "/data.json";
+        timerData = TimerData.loadFromJson(filePath);
 
-        happyIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                happyIcon.setSelected(!happyIcon.isSelected());
-            }
-        });
+        initializeUI();
 
-        sadIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sadIcon.setSelected(!sadIcon.isSelected());
-            }
-        });
-
-        NofeelingIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NofeelingIcon.setSelected(!NofeelingIcon.isSelected());
-            }
-        });
-
-        badIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                badIcon.setSelected(!badIcon.isSelected());
-            }
-        });
         myImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 SleepFragment sleepFragment = new SleepFragment();
-                fragmentTransaction.replace(R.id.fragment_sleep, sleepFragment);
+                fragmentTransaction.replace(R.id.fragment_sleep, sleepFragment); // Thay thế fragment_container bằng ID của Container trong layout của bạn
+                fragmentTransaction.addToBackStack(null); // Để có thể quay lại Fragment trước đó (nếu cần)
                 fragmentTransaction.commit();
             }
         });
+        Button btnTodolistButton;
+        btnTodolistButton = findViewById(R.id.btntodolist);
+        btnTodolistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CLgiacngu.this, Todolist.class);
+                startActivity(intent);
+            }
+        });
+    }
+    private void initializeUI() {
+        String filePath = getFilesDir() + "/data.json";
+        // Khởi tạo các thành phần giao diện ở đây (ImageButton, Button, TextView, vv.)
+
+        if (timerData != null) {
+            // Nếu timerData đã có dữ liệu, gán giá trị cho các thành phần giao diện tương ứng
+            TextView selectedOptionTextView1 = findViewById(R.id.wq1);
+            selectedOptionTextView1.setText(timerData.getSelectedOption1());
+
+            TextView selectedOptionTextView2 = findViewById(R.id.wq2);
+            selectedOptionTextView2.setText(timerData.getSelectedOption2());
+
+            TextView selectedOptionTextView3 = findViewById(R.id.wq3);
+            selectedOptionTextView3.setText(timerData.getSelectedOption3());
+
+            TextView selectedOptionTextView4 = findViewById(R.id.wq4);
+            selectedOptionTextView4.setText(timerData.getSelectedOption4());
+
+        }
+
+        String[] options3 = new String[10];
+        options3[0] = "1 lần";
+        for (int i = 2; i <= 10; i++) {
+            options3[i - 1] = i + " lần";
+        }
+
         List<String> timeList1 = new ArrayList<>();
         for (int hour = 0; hour < 24; hour++) {
             for (int minute = 0; minute < 60; minute += 30) {
@@ -89,31 +89,9 @@ public class CLgiacngu extends AppCompatActivity {
         }
 
         String[] options1 = timeList1.toArray(new String[0]);
-
         for (String time : options1) {
             System.out.println(time);
         }
-        Button selectQ1 = findViewById(R.id.Q1);
-        TextView selectedOptionTextView1 = findViewById(R.id.wq1);
-        selectQ1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CLgiacngu.this);
-                builder.setTitle("Chọn tùy chọn")
-                        .setItems(options1, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String selectedOption1 = options1[which];
-                                selectedOptionTextView1.setText(selectedOption1);
-                                SleepFragment sleepFragment = new SleepFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putString("selectedOption1", selectedOption1);
-                                sleepFragment.setArguments(bundle);
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
         List<String> timeList2 = new ArrayList<>();
         for (int hour = 0; hour < 2; hour++) {
             for (int minute = 0; minute < 60; minute += 5) {
@@ -133,52 +111,7 @@ public class CLgiacngu extends AppCompatActivity {
         for (String time : options2) {
             System.out.println(time);
         }
-        Button selectQ2 = findViewById(R.id.Q2);
-        TextView selectedOptionTextView2 = findViewById(R.id.wq2);
-        selectQ2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CLgiacngu.this);
-                builder.setTitle("Chọn tùy chọn")
-                        .setItems(options2, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String selectedOption2 = options2[which];
-                                selectedOptionTextView2.setText(selectedOption2);
 
-                                Bundle bundle2 = new Bundle();
-                                bundle2.putString("selectedOption2", selectedOption2);
-
-                                SleepFragment fragment = new SleepFragment();
-                                fragment.setArguments(bundle2);
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
-        Button selectQ3 = findViewById(R.id.Q3);
-        TextView selectedOptionTextView3 = findViewById(R.id.wq3);
-
-        selectQ3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CLgiacngu.this);
-                builder.setTitle("Chọn tùy chọn")
-                        .setItems(options3, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String selectedOption3 = options3[which];
-                                selectedOptionTextView3.setText(selectedOption3);
-                                Bundle bundle3 = new Bundle();
-                                bundle3.putString("selectedOption3", selectedOption3);
-
-                                SleepFragment fragment = new SleepFragment();
-                                fragment.setArguments(bundle3);
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
         List<String> timeList4 = new ArrayList<>();
         for (int hour = 0; hour < 2; hour++) {
             for (int minute = 0; minute < 60; minute += 5) {
@@ -191,44 +124,71 @@ public class CLgiacngu extends AppCompatActivity {
                     String minuteString = String.valueOf(minute);
                     String time = minuteString + " phút";
                     timeList4.add(time);}
-                }
+            }
         }
         String[] options4 = timeList4.toArray(new String[0]);
 
         for (String time : options4) {
             System.out.println(time);
         }
+
+        Button selectQ1 = findViewById(R.id.Q1);
+        selectQ1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionDialog(options1, (TextView) findViewById(R.id.wq1), timerData, filePath, "selectedOption1");
+            }
+        });
+        Button selectQ2 = findViewById(R.id.Q2);
+        selectQ2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionDialog(options2, (TextView) findViewById(R.id.wq2), timerData, filePath, "selectedOption2");
+            }
+        });
+        Button selectQ3 = findViewById(R.id.Q3);
+        selectQ3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionDialog(options3, (TextView) findViewById(R.id.wq3), timerData, filePath, "selectedOption3");
+            }
+        });
         Button selectQ4 = findViewById(R.id.Q4);
-        TextView selectedOptionTextView4 = findViewById(R.id.wq4);
         selectQ4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CLgiacngu.this);
-                builder.setTitle("Chọn tùy chọn")
-                        .setItems(options4, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String selectedOption4 = options4[which];
-                                selectedOptionTextView4.setText(selectedOption4);
-                                Bundle bundle4 = new Bundle();
-                                bundle4.putString("selectedOption4", selectedOption4);
+                showOptionDialog(options4, (TextView) findViewById(R.id.wq4), timerData, filePath, "selectedOption4");
+            }
+        });
+    }
+    private void showOptionDialog(String[] options, TextView selectedOptionTextView, TimerData timerData, String filePath, String propertyName) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CLgiacngu.this);
+        builder.setTitle("Chọn tùy chọn")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String selectedOption = options[which];
+                        selectedOptionTextView.setText(selectedOption);
 
-                                SleepFragment fragment = new SleepFragment();
-                                fragment.setArguments(bundle4);
+                        if (timerData != null) {
+                            switch (propertyName) {
+                                case "selectedOption1":
+                                    timerData.setSelectedOption1(selectedOption);
+                                    break;
+                                case "selectedOption2":
+                                    timerData.setSelectedOption2(selectedOption);
+                                    break;
+                                case "selectedOption3":
+                                    timerData.setSelectedOption3(selectedOption);
+                                    break;
+                                case "selectedOption4":
+                                    timerData.setSelectedOption4(selectedOption);
+                                    break;
                             }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
-        Button btnTodolistButton;
-        btnTodolistButton = findViewById(R.id.btntodolist);
-        btnTodolistButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CLgiacngu.this, Todolist.class);
-                startActivity(intent);
-            }
-        });
-
+                            timerData.saveToJson(filePath);
+                        }
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

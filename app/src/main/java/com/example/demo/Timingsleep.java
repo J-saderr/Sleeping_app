@@ -14,8 +14,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.Gson;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -104,14 +102,10 @@ public class Timingsleep extends AppCompatActivity {
             if (elapsedTimeInSeconds <= 30 * 60) {
                 TimerData timerData = new TimerData(startTimeInMillis, currentTimeInMillis);
 
-                Gson gson = new Gson();
-                String timerDataJson = gson.toJson(timerData);
-
                 String filePath = getFilesDir() + "/data.json";
                 timerData.saveToJson(filePath);
 
                 Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
-                intent.putExtra("timerDataJson", timerDataJson);
                 startActivity(intent);
                 finish();
             }
