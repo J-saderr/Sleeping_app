@@ -1,0 +1,18 @@
+{
+   "monday":{
+      "bedtime":"22:00",
+      "wake_up_time":"06:00"
+   },
+   "tuesday":{
+      "bedtime":"22:30",
+      "wake_up_time":"06:30"
+   },
+   "wednesday":{
+      "bedtime":"23:00",
+      "wake_up_time":"07:00"
+   },
+   "thursday":{
+      "bedtime":"23:30",
+      "wake_up_time":"07:30"
+   }
+}

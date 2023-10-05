@@ -133,21 +133,11 @@ public class SleepFragment extends Fragment {
             long start = convertOptionToMinutesStart(formattedStartTime);
             long stop = convertOptionToMinutesStop(formattedStopTime);
 
-            if (1440 >= selectedOptionMinutes1 && start>= 780 && stop >= 0 && 12 >= stop && selectedOptionMinutes1>= startTime ) {
                 long SleepTimeMinutes = start - selectedOptionMinutes1 + selectedOptionMinutes2 + selectedOptionMinutes4;
                 long TotalSleepTimeMinutes = stop + (start - selectedOptionMinutes1);
                 double sleepEfficiencyPercentage = (double) (SleepTimeMinutes / TotalSleepTimeMinutes) * 100;
 
-                // Cập nhật biểu đồ với giá trị thời gian tính toán
                 displayPieChart(sleepEfficiencyPercentage);
-            }
-            else{
-                long SleepTimeMinutes = start - selectedOptionMinutes1 + selectedOptionMinutes2 + selectedOptionMinutes4;
-                long TotalSleepTimeMinutes = stop + (start - selectedOptionMinutes1);
-                double sleepEfficiencyPercentage = (double) (SleepTimeMinutes / TotalSleepTimeMinutes) * 100;
-                displayPieChart(sleepEfficiencyPercentage);
-
-            }
         }
         String jsonData = "";
 

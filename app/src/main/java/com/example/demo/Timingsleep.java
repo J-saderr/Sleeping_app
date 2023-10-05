@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -48,7 +50,6 @@ public class Timingsleep extends AppCompatActivity {
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 if (e1.getY() > e2.getY()) {
                     Toast.makeText(Timingsleep.this, "Trượt lên để dừng", Toast.LENGTH_SHORT).show();
-                    // Implement your pause timer logic here
                     return true;
                 }
                 return super.onFling(e1, e2, velocityX, velocityY);
@@ -99,7 +100,7 @@ public class Timingsleep extends AppCompatActivity {
 
             timerTextView.setText(formattedTime);
 
-            if (elapsedTimeInSeconds <= 30 * 60) {
+            if (elapsedTimeInSeconds >= 30 * 60) {
                 TimerData timerData = new TimerData(startTimeInMillis, currentTimeInMillis);
 
                 String filePath = getFilesDir() + "/data.json";
@@ -108,6 +109,23 @@ public class Timingsleep extends AppCompatActivity {
                 Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
                 startActivity(intent);
                 finish();
+            }
+            if (elapsedTimeInSeconds < 30 * 60) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Thời gian nhỏ hơn 30 phút. Bạn có muốn dừng không?")
+                        .setPositiveButton("Dừng", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                boolean shouldSaveTime = false;
+                                Intent intent = new Intent(Timingsleep.this, CLgiacngu.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Tiếp tục", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                builder.create().show();
             }
         }
 

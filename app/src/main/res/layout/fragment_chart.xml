@@ -219,10 +219,11 @@
                     android:textColor="#ffffff"
                     android:textSize="25sp" />
             </LinearLayout>
-
-
         </LinearLayout>
-
-
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_below="@+id/item11"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 </FrameLayout>
