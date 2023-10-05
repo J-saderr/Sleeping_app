@@ -2,7 +2,6 @@ package com.example.demo;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +9,21 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +70,7 @@ public class ChartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
         LineChart lineChart = view.findViewById(R.id.lineChart);
+        LineChart lineChart1 = view.findViewById(R.id.lineChart1);
 
         SleepSchedule sleepSchedule = new SleepSchedule();
         sleepSchedule.setMonday("{\"bedtime\": \"22:00\", \"wake_up_time\": \"06:00\"}");
@@ -75,24 +78,28 @@ public class ChartFragment extends Fragment {
         sleepSchedule.setWednesday("{\"bedtime\": \"23:00\", \"wake_up_time\": \"07:00\"}");
         sleepSchedule.setThursday("{\"bedtime\": \"23:30\", \"wake_up_time\": \"07:30\"}");
 
-        List<Entry> entries = loadSleepDataFromSchedule(sleepSchedule);
+        List<Entry> entriesBedtime = loadSleepBedtimeDataFromSchedule(sleepSchedule);
+        List<Entry> entriesWakeupTime = loadSleepWakeupTimeDataFromSchedule(sleepSchedule);
 
-        if (entries != null && !entries.isEmpty()) {
-            configureLineChart(lineChart, entries);
+        if (entriesBedtime != null && !entriesBedtime.isEmpty()) {
+            configureLineChart(lineChart, entriesBedtime);
+        }
+
+        if (entriesWakeupTime != null && !entriesWakeupTime.isEmpty()) {
+            configureLineChart1(lineChart1, entriesWakeupTime);
         }
 
         return view;
     }
 
-    private List<Entry> loadSleepDataFromSchedule(SleepSchedule sleepSchedule) {
+    private List<Entry> loadSleepBedtimeDataFromSchedule(SleepSchedule sleepSchedule) {
         List<Entry> entries = new ArrayList<>();
 
-        String[] daysOfWeek = {"monday", "tuesday", "wednesday", "thursday"};
+        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday"};
         for (int i = 0; i < daysOfWeek.length; i++) {
             String day = daysOfWeek[i];
             String dayDataString = null;
 
-            // Determine which day to retrieve based on the loop index
             switch (i) {
                 case 0:
                     dayDataString = sleepSchedule.getMonday();
@@ -112,14 +119,50 @@ public class ChartFragment extends Fragment {
                 try {
                     JSONObject dayData = new JSONObject(dayDataString);
                     String bedtime = dayData.getString("bedtime");
-                    String wakeUpTime = dayData.getString("wake_up_time");
 
-                    // Log the data to check if it's read correctly
-                    Log.d("DATA", "Day: " + day + ", Bedtime: " + bedtime + ", Wake Up Time: " + wakeUpTime);
+                    float x = i;
+                    float bedtimeMinutes = convertTimeToHours(bedtime);
+                    entries.add(new Entry(x, bedtimeMinutes));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-                    float x = i; // Use the day index as x
-                    float y = convertTimeToMinutes(bedtime); // Convert bedtime to minutes
-                    entries.add(new Entry(x, y));
+        return entries;
+    }
+
+    private List<Entry> loadSleepWakeupTimeDataFromSchedule(SleepSchedule sleepSchedule) {
+        List<Entry> entries = new ArrayList<>();
+
+        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday"};
+        for (int i = 0; i < daysOfWeek.length; i++) {
+            String day = daysOfWeek[i];
+            String dayDataString = null;
+
+            switch (i) {
+                case 0:
+                    dayDataString = sleepSchedule.getMonday();
+                    break;
+                case 1:
+                    dayDataString = sleepSchedule.getTuesday();
+                    break;
+                case 2:
+                    dayDataString = sleepSchedule.getWednesday();
+                    break;
+                case 3:
+                    dayDataString = sleepSchedule.getThursday();
+                    break;
+            }
+
+            if (dayDataString != null) {
+                try {
+                    JSONObject dayData = new JSONObject(dayDataString);
+                    String wakeupTime = dayData.getString("wake_up_time");
+
+                    float x = i;
+                    float wakeupTimeMinutes = convertTimeToHours(wakeupTime); // Chuyển đổi wakeup time thành giờ
+                    entries.add(new Entry(x, wakeupTimeMinutes));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -130,20 +173,19 @@ public class ChartFragment extends Fragment {
     }
 
 
-    private float convertTimeToMinutes(String time) {
-        // Convert time in HH:mm format to minutes
+
+    private float convertTimeToHours(String time) {
         String[] parts = time.split(":");
         if (parts.length == 2) {
             int hours = Integer.parseInt(parts[0]);
             int minutes = Integer.parseInt(parts[1]);
-            return hours * 60 + minutes;
+            return hours + (minutes / 60.0f);
         }
         return 0;
     }
 
     private void configureLineChart(LineChart lineChart, List<Entry> entries) {
         if (entries != null && !entries.isEmpty()) {
-            // Create a DataSet and configure it
             LineDataSet dataSet = new LineDataSet(entries, "Bedtime Data");
             dataSet.setColor(Color.BLUE);
             dataSet.setValueTextColor(Color.RED);
@@ -153,14 +195,59 @@ public class ChartFragment extends Fragment {
 
             XAxis xAxis = lineChart.getXAxis();
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-            xAxis.setLabelCount(entries.size()); // Set the number of labels to match the number of entries
-            xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday"})); // Set day labels
+            xAxis.setLabelCount(7);
+
+            xAxis.setLabelCount(entries.size());
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}));
+            xAxis.setGranularity(1f);
+            xAxis.setTextColor(Color.WHITE);
 
             YAxis yAxis = lineChart.getAxisLeft();
-            yAxis.setAxisMinimum(0f);
-            yAxis.setAxisMaximum(1440f); // Set the maximum value to represent a full day (24 hours)
+            yAxis.setAxisMinimum(22f);
+            yAxis.setAxisMaximum(31f);
+            yAxis.setValueFormatter(new HourAxisValueFormatter());
+            yAxis.setTextColor(Color.WHITE);
 
             lineChart.invalidate();
+        }
+    }
+    public class HourAxisValueFormatter extends ValueFormatter {
+        @Override
+        public String getAxisLabel(float value, AxisBase axis) {
+            int hours = (int) value % 12;
+            if (hours == 0) {
+                hours = 12;
+            }
+            int minutes = (int) ((value - (int) value) * 60);
+            String amPm = (int) value < 12 ? "AM" : "PM";
+            return String.format(Locale.getDefault(), "%02d:%02d %s", hours, minutes, amPm);
+        }
+    }
+    private void configureLineChart1(LineChart lineChart1, List<Entry> entries) {
+        if (entries != null && !entries.isEmpty()) {
+            LineDataSet dataSet = new LineDataSet(entries, "Sleep Data");
+            dataSet.setColors(Color.BLUE, Color.RED);
+            dataSet.setLabel("Sleep Data");
+
+            LineData lineData = new LineData(dataSet);
+            lineChart1.setData(lineData);
+
+            XAxis xAxis = lineChart1.getXAxis();
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+            xAxis.setLabelCount(7);
+
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}));
+            xAxis.setGranularity(1f);
+            xAxis.setTextColor(Color.WHITE);
+
+            YAxis yAxis = lineChart1.getAxisLeft();
+            yAxis.setAxisMinimum(0f);
+            yAxis.setAxisMaximum(12f);
+            yAxis.setValueFormatter(new HourAxisValueFormatter());
+            yAxis.setTextColor(Color.WHITE);
+
+            lineChart1.invalidate();
         }
     }
 }

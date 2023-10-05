@@ -36,7 +36,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="58dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="20dp"
             android:text="Xu hướng"
             android:textColor="#ffffff"
             android:textSize="32sp"
@@ -49,7 +49,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="78dp"
+            android:layout_marginTop="58dp"
             android:text="Tuần"
             android:textColor="#ffffff"
             android:textSize="30sp" />
@@ -69,13 +69,13 @@
 
         <LinearLayout
             android:id="@+id/item11"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/textView10"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="205dp"
+            android:layout_marginTop="115dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:orientation="horizontal"
@@ -85,8 +85,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="0.5"
                 android:background="@drawable/buttonshape"
                 android:orientation="vertical">
 
@@ -105,7 +105,7 @@
                     android:text="Ngủ vào lúc \n 23:00"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -134,19 +134,19 @@
                     android:text="Thức dậy lúc \n 8:00"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/item12"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="104dp"
             android:layout_below="@+id/textView10"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="0dp"
             android:orientation="horizontal"
@@ -184,7 +184,7 @@
                         android:text="Hiệu quả giấc ngủ \n 85%"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
-                        android:textSize="23sp" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
 
@@ -199,8 +199,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
                 android:layout_marginStart="5dp"
+                android:layout_weight="0.5"
                 android:background="@drawable/buttonshape"
                 android:orientation="vertical">
 
@@ -217,13 +217,28 @@
                     android:text="Thời lượng ngủ \n 8h30min"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/item11"
+        android:weightSum="2"
+        android:orientation="vertical">
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"
-            android:layout_below="@+id/item11"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"/>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
     </RelativeLayout>
 </FrameLayout>
