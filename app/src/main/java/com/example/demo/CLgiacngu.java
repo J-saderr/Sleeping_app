@@ -10,15 +10,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CLgiacngu extends AppCompatActivity {
     public CLgiacngu() {
-        // Default constructor with no arguments
     }
     private TimerData timerData;
     @Override
@@ -34,12 +31,8 @@ public class CLgiacngu extends AppCompatActivity {
         myImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                SleepFragment sleepFragment = new SleepFragment();
-                fragmentTransaction.replace(R.id.fragment_sleep, sleepFragment); // Thay thế fragment_container bằng ID của Container trong layout của bạn
-                fragmentTransaction.addToBackStack(null); // Để có thể quay lại Fragment trước đó (nếu cần)
-                fragmentTransaction.commit();
+                Intent intent = new Intent(CLgiacngu.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         Button btnTodolistButton;
@@ -54,10 +47,9 @@ public class CLgiacngu extends AppCompatActivity {
     }
     private void initializeUI() {
         String filePath = getFilesDir() + "/data.json";
-        // Khởi tạo các thành phần giao diện ở đây (ImageButton, Button, TextView, vv.)
 
         if (timerData != null) {
-            // Nếu timerData đã có dữ liệu, gán giá trị cho các thành phần giao diện tương ứng
+
             TextView selectedOptionTextView1 = findViewById(R.id.wq1);
             selectedOptionTextView1.setText(timerData.getSelectedOption1());
 
@@ -69,6 +61,21 @@ public class CLgiacngu extends AppCompatActivity {
 
             TextView selectedOptionTextView4 = findViewById(R.id.wq4);
             selectedOptionTextView4.setText(timerData.getSelectedOption4());
+
+            TextView selectedOptionG1 = findViewById(R.id.wg1);
+            selectedOptionG1.setText(timerData.getSelectedOptionG1());
+
+            TextView selectedOptionG2 = findViewById(R.id.wg2);
+            selectedOptionG2.setText(timerData.getSelectedOptionG2());
+
+            TextView selectedOptionG3 = findViewById(R.id.wg3);
+            selectedOptionG3.setText(timerData.getSelectedOptionG3());
+
+            TextView selectedOptionG4 = findViewById(R.id.wg4);
+            selectedOptionG4.setText(timerData.getSelectedOptionG4());
+
+            TextView selectedOptionG5 = findViewById(R.id.wg5);
+            selectedOptionG5.setText(timerData.getSelectedOptionG5());
 
         }
 
@@ -160,6 +167,44 @@ public class CLgiacngu extends AppCompatActivity {
                 showOptionDialog(options4, (TextView) findViewById(R.id.wq4), timerData, filePath, "selectedOption4");
             }
         });
+        Button selectedOptionG1 = findViewById(R.id.G1);
+        Button selectedOptionG2 = findViewById(R.id.G2);
+        Button selectedOptionG3 = findViewById(R.id.G3);
+        Button selectedOptionG4 = findViewById(R.id.G4);
+        Button selectedOptionG5 = findViewById(R.id.G5);
+        selectedOptionG1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionDialog(options3, (TextView) findViewById(R.id.wg1), timerData, filePath, "selectedOptiong1");
+            }
+        });
+
+        selectedOptionG2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionDialog(options3, (TextView) findViewById(R.id.wg2), timerData, filePath, "selectedOptiong2");
+            }
+        });
+
+        selectedOptionG3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionDialog(options3, (TextView) findViewById(R.id.wg3), timerData, filePath, "selectedOptiong3");
+            }
+        });
+
+        selectedOptionG4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionDialog(options3, (TextView) findViewById(R.id.wg4), timerData, filePath, "selectedOptiong4");
+            }
+        });
+        selectedOptionG5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionDialog(options3, (TextView) findViewById(R.id.wg5), timerData, filePath, "selectedOptiong5");
+            }
+        });
     }
     private void showOptionDialog(String[] options, TextView selectedOptionTextView, TimerData timerData, String filePath, String propertyName) {
         AlertDialog.Builder builder = new AlertDialog.Builder(CLgiacngu.this);
@@ -182,6 +227,21 @@ public class CLgiacngu extends AppCompatActivity {
                                     break;
                                 case "selectedOption4":
                                     timerData.setSelectedOption4(selectedOption);
+                                    break;
+                                case "selectedOptionG1":
+                                    timerData.setSelectedOptionG1(selectedOption);
+                                    break;
+                                case "selectedOptionG2":
+                                    timerData.setSelectedOptionG2(selectedOption);
+                                    break;
+                                case "selectedOptionG3":
+                                    timerData.setSelectedOptionG3(selectedOption);
+                                    break;
+                                case "selectedOptionG4":
+                                    timerData.setSelectedOptionG4(selectedOption);
+                                    break;
+                                case "selectedOptionG5":
+                                    timerData.setSelectedOptionG5(selectedOption);
                                     break;
                             }
                             timerData.saveToJson(filePath);

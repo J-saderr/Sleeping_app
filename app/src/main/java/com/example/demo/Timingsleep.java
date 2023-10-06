@@ -78,6 +78,15 @@ public class Timingsleep extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button btnghichu;
+        btnghichu = findViewById(R.id.ghichu);
+        btnghichu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Timingsleep.this, Ghichu.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void stopTimer() {

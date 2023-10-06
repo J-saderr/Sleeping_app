@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/nenchinh"
+    tools:context=".Ghichu">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/btnoutghichu"
+            android:layout_width="83dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="26dp"
+            android:background="#00FDFDFC"
+            android:src="@drawable/muiten">
+
+        </ImageButton>
+        <TextView
+            android:id="@+id/danhgiagiac_ngu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="26dp"
+            android:gravity="center"
+            android:lineSpacingExtra="0sp"
+            android:text="Ghi chú"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/editTextTime1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Nhập nội dung"
+        android:inputType="time"
+        android:textColor="#ffffff"
+        android:textColorHint="#938B8B"
+        android:textSize="30sp"
+        android:visibility="visible" />
+
+
+    <EditText
+        android:id="@+id/editTextTime2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Nhập nội dung"
+        android:inputType="time"
+        android:textColor="#ffffff"
+        android:textColorHint="#938B8B"
+        android:textSize="30sp"
+        android:visibility="visible" />
+    <EditText
+        android:id="@+id/editTextTime3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Nhập nội dung"
+        android:inputType="time"
+        android:textColor="#ffffff"
+        android:textColorHint="#938B8B"
+        android:textSize="30sp"
+        android:visibility="visible" />
+    <EditText
+        android:id="@+id/editTextTime4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Nhập nội dung"
+        android:inputType="time"
+        android:textColor="#ffffff"
+        android:textColorHint="#938B8B"
+        android:textSize="30sp"
+        android:visibility="visible" />
+    <EditText
+        android:id="@+id/editTextTime5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Nhập nội dung"
+        android:inputType="time"
+        android:textColor="#ffffff"
+        android:textColorHint="#938B8B"
+        android:textSize="30sp"
+        android:visibility="visible" />
+</LinearLayout>

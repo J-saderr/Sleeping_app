@@ -2,6 +2,7 @@ package com.example.demo;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,7 @@ public class SleepFragment extends Fragment {
     }
 
     private String formatTime(long timeInMillis) {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
         Date date = new Date(timeInMillis);
         return sdf.format(date);
     }
@@ -81,8 +82,7 @@ public class SleepFragment extends Fragment {
         long hours = elapsedTimeInSeconds / 3600;
         long remainingSeconds = elapsedTimeInSeconds % 3600;
         long minutes = remainingSeconds / 60;
-        long seconds = remainingSeconds % 60;
-        return String.format("%02d:%02d:%02d", hours, minutes,seconds);
+        return String.format(Locale.getDefault(), "%02d tiếng", hours);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,6 +114,40 @@ public class SleepFragment extends Fragment {
             String formattedStartTime = formatTime(startTime);
             String formattedStopTime = formatTime(stopTime);
 
+            long time1 = loadedTimerData.getTime1();
+            long time2 = loadedTimerData.getTime2();
+            long time1MinusStartTime1 = time1 - startTime;
+            long time1MinusStartTime2 = time2 - stopTime;
+
+            String timeDifferenceLabel1;
+            String timeDifferenceLabel2;
+
+            if (time1MinusStartTime1 > 0) {
+
+                timeDifferenceLabel1 = "sớm " + time1MinusStartTime1;
+            } else if (time1MinusStartTime1 < 0) {
+
+                timeDifferenceLabel1 = "trễ "+ time1MinusStartTime1;
+            } else {
+
+                timeDifferenceLabel1 = "đúng " + time1MinusStartTime1 + " giờ";
+            }
+            Log.d("TimeDifferenceLabel", "Time Difference Label: " + timeDifferenceLabel1);
+
+            if (time1MinusStartTime2 > 0) {
+
+                timeDifferenceLabel2 = "sớm " + time1MinusStartTime2;
+            } else if (time1MinusStartTime2 < 0) {
+
+                timeDifferenceLabel2 = "trễ " + time1MinusStartTime2;
+            } else {
+
+                timeDifferenceLabel2 = "đúng " + time1MinusStartTime2 + " giờ";
+            }
+
+            Log.d("TimeDifferenceLabel", "Time Difference Label: " + timeDifferenceLabel2);
+
+
             startTimeTextView.setText(formattedStartTime);
             stopTimeTextView.setText(formattedStopTime);
 
@@ -133,9 +167,9 @@ public class SleepFragment extends Fragment {
             long start = convertOptionToMinutesStart(formattedStartTime);
             long stop = convertOptionToMinutesStop(formattedStopTime);
 
-                long SleepTimeMinutes = start - selectedOptionMinutes1 + selectedOptionMinutes2 + selectedOptionMinutes4;
-                long TotalSleepTimeMinutes = stop + (start - selectedOptionMinutes1);
-                double sleepEfficiencyPercentage = (double) (SleepTimeMinutes / TotalSleepTimeMinutes) * 100;
+            long SleepTimeMinutes = start - selectedOptionMinutes1 + selectedOptionMinutes2 + selectedOptionMinutes4;
+            long TotalSleepTimeMinutes = stop + (start - selectedOptionMinutes1);
+            double sleepEfficiencyPercentage = (double) SleepTimeMinutes / TotalSleepTimeMinutes * 100;
 
                 displayPieChart(sleepEfficiencyPercentage);
         }

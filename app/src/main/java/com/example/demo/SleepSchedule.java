@@ -18,6 +18,7 @@ public class SleepSchedule {
     private String tuesday;
     private String wednesday;
     private String thursday;
+    private String friday;
 
     public SleepSchedule() {
         // Default constructor
@@ -54,6 +55,13 @@ public class SleepSchedule {
     public void setThursday(String thursday) {
         this.thursday = thursday;
     }
+    public void setFriday(String friday) {
+        this.friday = friday;
+    }
+
+    public String getFriday() {
+        return friday;
+    }
 
     // Add methods to get the sleep data for each day
     public String getSleepDataForMonday() {
@@ -79,6 +87,7 @@ public class SleepSchedule {
         sleepSchedule.setTuesday("{\"bedtime\": \"22:30\", \"wake_up_time\": \"06:30\"}");
         sleepSchedule.setWednesday("{\"bedtime\": \"23:00\", \"wake_up_time\": \"07:00\"}");
         sleepSchedule.setThursday("{\"bedtime\": \"23:30\", \"wake_up_time\": \"07:30\"}");
+        sleepSchedule.setFriday("{\"bedtime\": \"23:45\", \"wake_up_time\": \"08:10\"}");
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(sleepSchedule);

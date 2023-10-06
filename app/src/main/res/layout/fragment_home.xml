@@ -12,6 +12,26 @@
         android:background="@drawable/nenchinh"
         tools:context=".HomeFragment">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/buttonshape"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thói quen làm việc quá khuya/ thức khuya sẽ ảnh hưởng đến nhịp độ sinh học của cơ thể. Vì vậy bạn nên sắp xếp công việc hợp lý và hạn chế sử dụng điện thoại quá khuya. Thay vào đó, ngủ sớm sẽ tốt cho sức khỏe tương lai của bạn hơn."
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/name"
             android:layout_width="159dp"

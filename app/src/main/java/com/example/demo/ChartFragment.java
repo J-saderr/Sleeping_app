@@ -73,10 +73,11 @@ public class ChartFragment extends Fragment {
         LineChart lineChart1 = view.findViewById(R.id.lineChart1);
 
         SleepSchedule sleepSchedule = new SleepSchedule();
-        sleepSchedule.setMonday("{\"bedtime\": \"22:00\", \"wake_up_time\": \"06:00\"}");
-        sleepSchedule.setTuesday("{\"bedtime\": \"22:30\", \"wake_up_time\": \"06:30\"}");
-        sleepSchedule.setWednesday("{\"bedtime\": \"23:00\", \"wake_up_time\": \"07:00\"}");
-        sleepSchedule.setThursday("{\"bedtime\": \"23:30\", \"wake_up_time\": \"07:30\"}");
+        sleepSchedule.setMonday("{\"bedtime\": \"22:08\", \"wake_up_time\": \"06:32\"}");
+        sleepSchedule.setTuesday("{\"bedtime\": \"22:34\", \"wake_up_time\": \"06:10\"}");
+        sleepSchedule.setWednesday("{\"bedtime\": \"23:25\", \"wake_up_time\": \"07:15\"}");
+        sleepSchedule.setThursday("{\"bedtime\": \"23:32\", \"wake_up_time\": \"07:20\"}");
+        sleepSchedule.setFriday("{\"bedtime\": \"23:45\", \"wake_up_time\": \"08:10\"}");
 
         List<Entry> entriesBedtime = loadSleepBedtimeDataFromSchedule(sleepSchedule);
         List<Entry> entriesWakeupTime = loadSleepWakeupTimeDataFromSchedule(sleepSchedule);
@@ -95,7 +96,7 @@ public class ChartFragment extends Fragment {
     private List<Entry> loadSleepBedtimeDataFromSchedule(SleepSchedule sleepSchedule) {
         List<Entry> entries = new ArrayList<>();
 
-        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday"};
+        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         for (int i = 0; i < daysOfWeek.length; i++) {
             String day = daysOfWeek[i];
             String dayDataString = null;
@@ -113,6 +114,13 @@ public class ChartFragment extends Fragment {
                 case 3:
                     dayDataString = sleepSchedule.getThursday();
                     break;
+                // Thêm các ngày cuối tuần (Friday, Saturday, Sunday)
+                case 4:
+                    dayDataString = sleepSchedule.getFriday();
+                    break;
+                case 5:
+                case 6:
+                    continue;
             }
 
             if (dayDataString != null) {
@@ -135,7 +143,7 @@ public class ChartFragment extends Fragment {
     private List<Entry> loadSleepWakeupTimeDataFromSchedule(SleepSchedule sleepSchedule) {
         List<Entry> entries = new ArrayList<>();
 
-        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday"};
+        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         for (int i = 0; i < daysOfWeek.length; i++) {
             String day = daysOfWeek[i];
             String dayDataString = null;
@@ -153,6 +161,12 @@ public class ChartFragment extends Fragment {
                 case 3:
                     dayDataString = sleepSchedule.getThursday();
                     break;
+                case 4:
+                    dayDataString = sleepSchedule.getFriday();
+                    break;
+                case 5:
+                case 6:
+                    continue;
             }
 
             if (dayDataString != null) {
@@ -161,7 +175,7 @@ public class ChartFragment extends Fragment {
                     String wakeupTime = dayData.getString("wake_up_time");
 
                     float x = i;
-                    float wakeupTimeMinutes = convertTimeToHours(wakeupTime); // Chuyển đổi wakeup time thành giờ
+                    float wakeupTimeMinutes = convertTimeToHours(wakeupTime);
                     entries.add(new Entry(x, wakeupTimeMinutes));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -171,8 +185,6 @@ public class ChartFragment extends Fragment {
 
         return entries;
     }
-
-
 
     private float convertTimeToHours(String time) {
         String[] parts = time.split(":");
@@ -188,7 +200,7 @@ public class ChartFragment extends Fragment {
         if (entries != null && !entries.isEmpty()) {
             LineDataSet dataSet = new LineDataSet(entries, "Bedtime Data");
             dataSet.setColor(Color.BLUE);
-            dataSet.setValueTextColor(Color.RED);
+            dataSet.setValueTextColor(Color.WHITE);
 
             LineData lineData = new LineData(dataSet);
             lineChart.setData(lineData);
@@ -225,9 +237,9 @@ public class ChartFragment extends Fragment {
     }
     private void configureLineChart1(LineChart lineChart1, List<Entry> entries) {
         if (entries != null && !entries.isEmpty()) {
-            LineDataSet dataSet = new LineDataSet(entries, "Sleep Data");
-            dataSet.setColors(Color.BLUE, Color.RED);
-            dataSet.setLabel("Sleep Data");
+            LineDataSet dataSet = new LineDataSet(entries, "Bedtime Data");
+            dataSet.setColor(Color.GREEN);
+            dataSet.setValueTextColor(Color.WHITE);
 
             LineData lineData = new LineData(dataSet);
             lineChart1.setData(lineData);
